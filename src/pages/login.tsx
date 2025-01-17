@@ -4,8 +4,9 @@ import { Button, DatePicker } from 'antd';
 export const LoginRoute: React.FC = () => {
   return (
     <div style={{ padding: 24 }}>
-      <DatePicker style={{ marginTop: 16 }} />
-      <Button type="primary">登入</Button>
+      <DatePicker className='block' />
+      <Button className="text-2xl" type="primary">登入</Button>
+      <p className="text-2xl bg-black">asdsa</p>
     </div>
   );
 };
