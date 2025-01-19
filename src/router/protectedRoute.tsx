@@ -20,14 +20,12 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   //   setToken('fake_token_123'); // 使用你的 cookie.js 中的 setToken 方法
   // }
   
-  console.log('getToken', getToken());
-  console.log('hasValidToken', hasValidToken());
 
   if (!hasValidToken()) {
-    console.log({
-      pathname: location.pathname,
-      redirectTo: paths.public.login.getHref(location.pathname),
-    });
+    // console.log({
+    //   pathname: location.pathname,
+    //   redirectTo: paths.public.login.getHref(location.pathname),
+    // });
     return (
       <Navigate to={paths.public.login.path} replace />
     );

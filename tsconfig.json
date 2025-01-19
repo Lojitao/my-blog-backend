@@ -4,6 +4,10 @@
     "target": "ES2022",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
 
+    /* 允許混合 TypeScript 和 JavaScript */
+    "allowJs": true, // 支持引入 .js 文件
+    "checkJs": false, // 不檢查 .js 文件類型
+
     /* 模塊和編譯相關選項 */
     "module": "ESNext",
     "moduleResolution": "bundler",

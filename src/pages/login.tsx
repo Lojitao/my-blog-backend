@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Button, Input } from 'antd';
+import { Button, Input,notification } from 'antd';
 import { UserOutlined,EyeOutlined,EyeInvisibleOutlined } from '@ant-design/icons';
+import { useApi } from '../context/ApiContext'; // 引入全局 API 的 Hook
+import { useNavigate } from "react-router-dom";
+
+// @ts-ignore
+import { setToken } from "../utils/cookie.js";
 
 export const LoginRoute: React.FC = () => {
+  const api = useApi(); // 全局 API
+  const navigate = useNavigate(); // 初始化 useNavigate Hook
+
   const [account,setAccount] = useState("")
   const [secret,setSecret] = useState("")
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // 控制圖標狀態
@@ -11,9 +19,15 @@ export const LoginRoute: React.FC = () => {
     setIsPasswordVisible((prev) => !prev); // 切換圖標狀態
   }
 
-  function submit(){
-    console.log('account',account);
-    console.log('secret',secret);
+  async function submit(){
+    const response = await api.auth.login({ login:account, password:secret });
+    const { status,data } =response
+    if (status===200) {
+      notification.success({message: "登入成功"})
+      setToken(data)
+      navigate('/dashboard')
+    }
+    
   }
 
   return (
