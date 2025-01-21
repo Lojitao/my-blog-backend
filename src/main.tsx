@@ -7,9 +7,9 @@ import { ApiProvider } from './context/ApiContext';
 import {App} from './router'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <ApiProvider>
       <App />
     </ApiProvider>
-  </StrictMode>,
+  // </StrictMode>,
 )

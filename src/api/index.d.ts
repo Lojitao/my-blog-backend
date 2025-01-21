@@ -1,11 +1,11 @@
 import authApi from './authApi';
-// import postApi from './postApi';
-// import userApi from './userApi';
+import category from './category';
+import blogCategory from './blogCategory';
 
 export type ApiType = {
   auth: typeof authApi;
-  // post: typeof postApi;
-  // user: typeof userApi;
+  category: typeof category;
+  blogCategory: typeof blogCategory;
 };
 
 declare const api: ApiType;
