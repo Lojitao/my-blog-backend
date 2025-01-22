@@ -1,15 +1,13 @@
 import auth from './authApi';
 import category from './category';
 import blogCategory from './blogCategory';
-// import postApi from './postApi';
-// import userApi from './userApi';
+import blog from './blog';
 
 const api = {
   auth,
   category,
-  blogCategory
-  // post: postApi,
-  // user: userApi,
+  blogCategory,
+  blog
 };
 
 export default api;

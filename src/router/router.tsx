@@ -34,6 +34,22 @@ export const createAppRouter = () =>
             },
             ErrorBoundary: AppRootErrorBoundary,
           }, 
+          {
+            path: paths.proteced.blog.path,
+            lazy: async () => {
+              const { Blog } = await import('../pages/blog');
+              return { Component: Blog};
+            },
+            ErrorBoundary: AppRootErrorBoundary,
+          }, 
+          {
+            path: paths.proteced.editor.path,
+            lazy: async () => {
+              const { Editor } = await import('../pages/editor');
+              return { Component: Editor};
+            },
+            ErrorBoundary: AppRootErrorBoundary,
+          }, 
         ],
       },
       // {

@@ -1,3 +1,5 @@
+import Editor from "react-markdown-editor-lite";
+
 export const paths = {
   public: {
     login: {
@@ -15,6 +17,14 @@ export const paths = {
     dashboard: {
       path: 'dashboard',
       getHref: () => '/dashboard',
+    },
+    blog: {
+      path: 'blog',
+      getHref: () => '/blog',
+    },
+    editor: {
+      path: 'editor/:id?', // 這裡使用 :id?，表示 id 是可選的
+      getHref: (id?: string) => (id ? `/editor/${id}` : '/editor'),
     },
   },
 } as const;
