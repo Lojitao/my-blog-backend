@@ -1,5 +1,7 @@
 import { useApi } from '../context/ApiContext'; // 引入全局 API 的 Hook
 import React, { useState,useEffect } from "react";
+import { useParams } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; // 引入 useNavigate
 import { renderToStaticMarkup } from "react-dom/server";
 import MdEditor from "react-markdown-editor-lite"; // Markdown 编辑器
 import ReactMarkdown from "react-markdown"; // 用于渲染 Markdown
@@ -16,7 +18,9 @@ interface MarkdownEditProps {
 
 export const MarkdownEdit: React.FC<MarkdownEditProps> = ({ onSaveOrAdd }) => {
   const api = useApi(); // 全局 API
-
+  // const navigate = useNavigate(); // 使用 useNavigate 來進行路由跳轉
+  
+  const { id } = useParams<{ id?: string }>();
   const [title, setTitle] = useState<string>(''); // 標題
   const [markdown, setMarkdown] = useState<string>('');
   const [categories, setCategories] = useState<{ id: number; name: string }[]>([]); // 分類列表
@@ -28,7 +32,30 @@ export const MarkdownEdit: React.FC<MarkdownEditProps> = ({ onSaveOrAdd }) => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        await getDate();
+      };
+      fetchData();
+    }
+  }, [id]);
   
+  async function getDate(){
+    if (!id) return; // 確保 id 存在
+    const response = await api.blog.getBlogById(id);
+    const {data,status} = response
+    if(status===200){
+      message.success(`取得資料成功`);
+      console.log('data',data);
+      const {title,content,blog_category_id} = data
+      setSelectedCategoryId(blog_category_id)
+      setTitle(title)
+      setMarkdown(content)
+    }
+  }
+
   async function loadBlogCatogory(){
     const query = {
       currentPage:1,
@@ -95,15 +122,20 @@ export const MarkdownEdit: React.FC<MarkdownEditProps> = ({ onSaveOrAdd }) => {
     }
 
     if(title && selectedCategoryId && markdown){
-      // 使用 renderHTML 获取 HTML 的 JSX 内容
-      const htmlJSX = renderHTML(markdown);
+      // // 使用 renderHTML 获取 HTML 的 JSX 内容
+      // const htmlJSX = renderHTML(markdown);
   
-      // 将 React 组件渲染为 HTML 字符串
-      const htmlString = renderToStaticMarkup(htmlJSX);
+      // // 将 React 组件渲染为 HTML 字符串
+      // const htmlString = renderToStaticMarkup(htmlJSX);
 
+      // const reqBody = {
+      //   title,
+      //   content:htmlString,
+      //   blogCategoryId:selectedCategoryId
+      // }
       const reqBody = {
         title,
-        content:htmlString,
+        content:markdown,
         blogCategoryId:selectedCategoryId
       }
 

@@ -1,5 +1,3 @@
-import Editor from "react-markdown-editor-lite";
-
 export const paths = {
   public: {
     login: {
